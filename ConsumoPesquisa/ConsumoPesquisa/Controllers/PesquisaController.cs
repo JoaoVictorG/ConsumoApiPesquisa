@@ -67,6 +67,8 @@ namespace ConsumoPesquisa.Controllers
         //    IRestResponse response = client.Execute(request);
         //    return pesquisaList;
         //}
+        //[HttpGet("{pesquisa}"), ActionName("Pesquisar")]
+        //[Route("Pesquisar/{pesquisa:string}")]
         public async Task<Pesquisa> Pesquisar(string pesquisa)
         {
             HttpClient httpClient = new HttpClient();

@@ -4,10 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<form asp-action="Pesquisar">
-    <input type="text" />
+@*<form asp-action="Pesquisar">
+    <input type="text"/>
     <button type="button">Enviar</button>
-</form>
+</form>*@
+<a asp-action="Pesquisar" asp-route-pesquisa="caixa">teste</a>
 <h5>@TempData["Titulo"]</h5>
 <a href="@TempData["Titulo"]">@TempData["Titulo"]</a>
 
