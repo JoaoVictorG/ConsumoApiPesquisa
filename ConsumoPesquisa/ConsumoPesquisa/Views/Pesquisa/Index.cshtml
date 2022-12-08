@@ -1,0 +1,13 @@
+﻿@model ConsumoPesquisa.Models.Pesquisa
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-action="Pesquisar">
+    <input type="text" />
+    <button type="button">Enviar</button>
+</form>
+<h5>@TempData["Titulo"]</h5>
+<a href="@TempData["Titulo"]">@TempData["Titulo"]</a>
+
