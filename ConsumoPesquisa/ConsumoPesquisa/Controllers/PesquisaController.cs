@@ -6,32 +6,21 @@ namespace ConsumoPesquisa.Controllers
 {
     public class PesquisaController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string pesquisa)
         {
-            //IEnumerable<Pesquisa> contatos = null;
-            //using (var client = new HttpClient())
-            //{
-            //    client.BaseAddress = new Uri("https://localhost:7225/api/Pesquisa");
 
-            //    //HTTP GET
-            //    var responseTask = client.GetAsync(nome);
-            //    responseTask.Wait();
-            //    var result = responseTask.Result;
+            //return View();
+            if(pesquisa != null)
+            {
+                HttpClient httpClient = new HttpClient();
+                var response = await httpClient.GetAsync($"https://localhost:7225/api/Pesquisa/{pesquisa}");
+                var jsonString = await response.Content.ReadAsStringAsync();
 
-            //    //if (result.IsSuccessStatusCode)
-            //    //{
-            //    //    var readTask = result.Content.ReadAsAsync<IList<Pesquisa>>();
-            //    //    readTask.Wait();
-            //    //    contatos = readTask.Result;
-            //    //}
-            //    //else
-            //    //{
-            //    //    contatos = Enumerable.Empty<Pesquisa>();
-            //    //    ModelState.AddModelError(string.Empty, "Erro no servidor. Contate o Administrador.");
-            //    //}
-            //    return View(contatos);
-            //}
+                Pesquisa jsonObject = JsonConvert.DeserializeObject<Pesquisa>(jsonString);
 
+                TempData["Titulo"] = jsonObject.Titulo;
+                TempData["Link"] = jsonObject.Link;
+            }
             return View();
 
         }
@@ -69,19 +58,19 @@ namespace ConsumoPesquisa.Controllers
         //}
         //[HttpGet("{pesquisa}"), ActionName("Pesquisar")]
         //[Route("Pesquisar/{pesquisa:string}")]
-        public async Task<Pesquisa> Pesquisar(string pesquisa)
-        {
-            HttpClient httpClient = new HttpClient();
-            var response = await httpClient.GetAsync($"https://localhost:7225/api/Pesquisa/{pesquisa}");
-            var jsonString = await response.Content.ReadAsStringAsync();
+        //public async Task<Pesquisa> Pesquisar(string pesquisa)
+        //{
+        //    HttpClient httpClient = new HttpClient();
+        //    var response = await httpClient.GetAsync($"https://localhost:7225/api/Pesquisa/{pesquisa}");
+        //    var jsonString = await response.Content.ReadAsStringAsync();
 
-            Pesquisa jsonObject = JsonConvert.DeserializeObject<Pesquisa>(jsonString);
+        //    Pesquisa jsonObject = JsonConvert.DeserializeObject<Pesquisa>(jsonString);
 
-            TempData["Titulo"] = jsonObject.Link;
-            TempData["Link"] = jsonObject.Link;
+        //    TempData["Titulo"] = jsonObject.Titulo;
+        //    TempData["Link"] = jsonObject.Link;
 
-
-            return jsonObject;
-        }
+        //    return jsonObject;
+            
+        //}
     }
 }
